@@ -12,6 +12,7 @@
     </head>
     <body class="main-template font-sans leading-none text-gray-700 antialiased">
         {{ $slot }}
+        <x-sidebar/>
         <x-page-full-heading />
     </body>
 </html>

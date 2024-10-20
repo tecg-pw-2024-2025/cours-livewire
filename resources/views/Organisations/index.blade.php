@@ -1,5 +1,5 @@
-<x-main-content>
-    <x-slot name="maincontent">
+<x-Layouts.app>
+    <main class="main-content px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto">
         <h1 class="mb-8 text-3xl font-bold">Organizations</h1>
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center mr-4 w-full max-w-md">
@@ -19,7 +19,10 @@
                            type="text"
                            name="search"
                            placeholder="Name">
-                    <button type="submit" class="focus:z-10 px-4 hover:bg-gray-100 border-r focus:border-white rounded-l focus:ring md:px-6">Search</button>
+                    <button type="submit"
+                            class="focus:z-10 px-4 hover:bg-gray-100 border-r focus:border-white rounded-l focus:ring md:px-6">
+                        Search
+                    </button>
                 </form>
             </div>
             <a class="btn-indigo"
@@ -65,5 +68,5 @@
             </table>
         </div>
         {{ $organizations->links('vendor.pagination.ping') }}
-    </x-slot>
-</x-main-content>
+    </main>
+</x-Layouts.app>

@@ -1,5 +1,5 @@
-<x-main-content>
-    <x-slot name="maincontent">
+<x-Layouts.app>
+    <main class="main-content px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto">
         <div class="px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto"
              scroll-region="">
             <div>
@@ -130,6 +130,6 @@
                 </div>
             </div>
         </div>
-    </x-slot>
-</x-main-content>
+    </main>
+</x-Layouts.app>
 
