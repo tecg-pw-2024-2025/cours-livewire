@@ -1,0 +1,2 @@
+<x-logo />
+<x-heading />
