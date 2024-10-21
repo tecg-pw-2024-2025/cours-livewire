@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use App\Livewire\Forms\OrganizationForm;
 use App\Models\Organization;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Livewire\Component;
 
 class OrganizationEdit extends Component
@@ -14,7 +17,7 @@ class OrganizationEdit extends Component
 
     public string $feedback = '';
 
-    public function mount($organization): void
+    public function mount(Organization $organization): void
     {
         $this->form->setOrganization($organization);
     }
@@ -28,7 +31,7 @@ class OrganizationEdit extends Component
         $this->dispatch('organization-saved');
     }
 
-    public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+    public function render(): Application|Factory|View|\Illuminate\View\View
     {
         $this->organization->load('contacts');
 

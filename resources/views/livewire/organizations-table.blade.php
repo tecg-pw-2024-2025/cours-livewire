@@ -29,49 +29,59 @@
             </form>
         </div>
         <a class="btn-indigo"
+           wire:navigate
            href="/organizations/create"><span>Create</span><span class="hidden md:inline">&nbsp;Organization</span></a>
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto"
          x-data="{ highlightedText: function(text) { return text.replace(new RegExp(this.$wire.search, 'gi'), match => '<span class=bg-yellow-200>' + match + '</span>'); } }"
     >
-    <table class="w-full whitespace-nowrap">
-        <thead>
-            <tr class="text-left font-bold">
-                <th class="pb-4 pt-6 px-6 hover:cursor-pointer" wire:click="sort('name')">Name</th>
-                <th class="pb-4 pt-6 px-6 hover:cursor-pointer" wire:click="sort('city')">City</th>
-                <th class="pb-4 pt-6 px-6"
-                    colspan="2">Phone
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($this->organizations as $organization)
-                <tr class="hover:bg-gray-100 focus-within:bg-gray-100">
-                    <td class="border-t"><a class="flex items-center px-6 py-4 focus:text-indigo-500"
-                                            href="/organizations/{{ $organization->id }}/edit"
-                                            x-html="highlightedText(&quot;{{ $organization->name }}&quot;)"></a>
-                    </td>
-                    <td class="border-t"><a class="flex items-center px-6 py-4"
-                                            tabindex="-1"
-                                            href="/organizations/{{ $organization->id }}/edit">{{ $organization->city }}</a>
-                    </td>
-                    <td class="border-t"><a class="flex items-center px-6 py-4"
-                                            tabindex="-1"
-                                            href="/organizations/{{ $organization->id }}/edit">{{ $organization->phone }}</a>
-                    </td>
-                    <td class="w-px border-t"><a class="flex items-center px-4"
-                                                 tabindex="-1"
-                                                 href="/organizations/{{ $organization->id }}/edit">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 20 20"
-                                 class="block w-6 h-6 fill-gray-400">
-                                <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707"></polygon>
-                            </svg>
-                        </a></td>
+        <table class="w-full whitespace-nowrap">
+            <thead>
+                <tr class="text-left font-bold">
+                    <th class="pb-4 pt-6 px-6 hover:cursor-pointer"
+                        wire:click="sort('name')">Name
+                    </th>
+                    <th class="pb-4 pt-6 px-6 hover:cursor-pointer"
+                        wire:click="sort('city')">City
+                    </th>
+                    <th class="pb-4 pt-6 px-6"
+                        colspan="2">Phone
+                    </th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($this->organizations as $organization)
+                    <tr class="hover:bg-gray-100 focus-within:bg-gray-100" wire:key="{{ $organization->id }}">
+                        <td class="border-t"><a class="flex items-center px-6 py-4 focus:text-indigo-500"
+                                                wire:navigate
+                                                href="/organizations/{{ $organization->id }}/edit"
+                                                x-html="highlightedText(&quot;{{ $organization->name }}&quot;)"></a>
+                        </td>
+                        <td class="border-t"><a class="flex items-center px-6 py-4"
+                                                wire:navigate
+                                                tabindex="-1"
+                                                href="/organizations/{{ $organization->id }}/edit">{{ $organization->city }}</a>
+                        </td>
+                        <td class="border-t"><a class="flex items-center px-6 py-4"
+                                                wire:navigate
+                                                tabindex="-1"
+                                                href="/organizations/{{ $organization->id }}/edit">{{ $organization->phone }}</a>
+                        </td>
+                        <td class="w-px border-t"><a class="flex items-center px-4"
+                                                     wire:navigate
+                                                     tabindex="-1"
+                                                     href="/organizations/{{ $organization->id }}/edit">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 20 20"
+                                     class="block w-6 h-6 fill-gray-400">
+                                    <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707"></polygon>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
     {{ $this->organizations->links(data: ['scrollTo' => false]) }}
 </main>

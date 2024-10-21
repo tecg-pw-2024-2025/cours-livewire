@@ -1,6 +1,7 @@
 <nav {{ $attributes->class(['sidebar hidden p-12 w-56 bg-indigo-800 overflow-y-auto md:block']) }}>
     <h2 class="sr-only">Navigation</h2>
     <div class="mb-4"><a class="group flex items-center py-3"
+                         wire:navigate
                          href="/">
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 20 20"
@@ -10,6 +11,7 @@
             <div class="text-indigo-300 group-hover:text-white">Dashboard</div>
         </a></div>
     <div class="mb-4"><a class="group flex items-center py-3"
+                         wire:navigate
                          href="/organizations">
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="100"
@@ -22,6 +24,7 @@
             <div class="text-white">Organizations</div>
         </a></div>
     <div class="mb-4"><a class="group flex items-center py-3"
+                         wire:navigate
                          href="/contacts">
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 20 20"
@@ -31,6 +34,7 @@
             <div class="text-indigo-300 group-hover:text-white">Contacts</div>
         </a></div>
     <div class="mb-4"><a class="group flex items-center py-3"
+                         wire:navigate
                          href="/reports">
             <svg xmlns="http://www.w3.org/2000/svg"
                  viewBox="0 0 20 20"

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr"
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
       class="h-full bg-gray-100">
     <head>
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible"
               content="ie=edge">
-        <title>Document</title>
+        <title>{{ $title ?? 'Page Title' }}</title>
         @vite(['resources/css/app.css'])
     </head>
     <body class="main-template font-sans leading-none text-gray-700 antialiased">
