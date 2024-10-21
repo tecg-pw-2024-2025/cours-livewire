@@ -4,5 +4,6 @@
 @import 'grids';
 @import 'buttons';
 @import 'form';
+@import 'feedback';
 
 @import 'tailwindcss/utilities';

@@ -13,6 +13,8 @@ class OrganizationsTable extends Component
 
     public $search = '';
     public $search_button = false;
+    public $sortField = 'name';
+    public $sortDirection = 'asc';
 
     #[Computed]
     public function organizations()
@@ -20,7 +22,17 @@ class OrganizationsTable extends Component
         return Account::whereName('Acme Corporation')->first()
             ->organizations()
             ->filter(['search' => $this->search])
-            ->orderBy('name')
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(10);
+    }
+
+    public function sort($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        $this->sortField = $field;
     }
 }

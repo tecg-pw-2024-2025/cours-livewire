@@ -37,8 +37,8 @@
     <table class="w-full whitespace-nowrap">
         <thead>
             <tr class="text-left font-bold">
-                <th class="pb-4 pt-6 px-6">Name</th>
-                <th class="pb-4 pt-6 px-6">City</th>
+                <th class="pb-4 pt-6 px-6 hover:cursor-pointer" wire:click="sort('name')">Name</th>
+                <th class="pb-4 pt-6 px-6 hover:cursor-pointer" wire:click="sort('city')">City</th>
                 <th class="pb-4 pt-6 px-6"
                     colspan="2">Phone
                 </th>
@@ -49,7 +49,7 @@
                 <tr class="hover:bg-gray-100 focus-within:bg-gray-100">
                     <td class="border-t"><a class="flex items-center px-6 py-4 focus:text-indigo-500"
                                             href="/organizations/{{ $organization->id }}/edit"
-                                            x-html="highlightedText('{{ $organization->name }}')"></a>
+                                            x-html="highlightedText(&quot;{{ $organization->name }}&quot;)"></a>
                     </td>
                     <td class="border-t"><a class="flex items-center px-6 py-4"
                                             tabindex="-1"
