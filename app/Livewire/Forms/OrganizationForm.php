@@ -2,20 +2,43 @@
 
 namespace App\Livewire\Forms;
 
+use App\Exceptions\OrganizationException;
 use App\Models\Organization;
+use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Validate;
 use Livewire\Form;
+
 
 class OrganizationForm extends Form
 {
+
     public ?Organization $organization = null;
+
+    #[Validate]
     public string $name = '';
+
+    #[Validate]
     public string $email = '';
+
+    #[Validate]
     public string $phone = '';
+
+    #[Validate]
     public string $address = '';
+
+    #[Validate]
     public string $city = '';
+
+    #[Validate]
     public string $region = '';
+
+    #[Validate]
     public string $country = '';
+
+    #[Validate]
     public string $postal_code = '';
+
+    public string $account_id = '1';
 
     public function setOrganization(Organization $organization): void
     {
@@ -33,14 +56,24 @@ class OrganizationForm extends Form
 
     public function store(): void
     {
-        $this->validate();
-
+        try {
+            $this->validate();
+        } catch (ValidationException $exception) {
+            throw new OrganizationException('invalid-data-for-organization', 0, $exception);
+        }
         Organization::create($this->all());
     }
 
+    /**
+     * @throws OrganizationException
+     */
     public function update(): void
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $exception) {
+            throw new OrganizationException('invalid-data-for-organization', 0, $exception);
+        }
 
         $this->organization->update(
             $this->all()
@@ -49,15 +82,17 @@ class OrganizationForm extends Form
 
     public function rules(): array
     {
+        $countries = implode(',', array_keys(config('organisations')));
+
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['email', 'max:255'],
-            'phone' => ['max:255'],
-            'address' => ['max:255'],
-            'city' => ['max:255'],
-            'region' => ['max:255'],
-            'country' => ['in:US,CA'],
-            'postal_code' => ['max:255'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['nullable', 'email', 'max:50'],
+            'phone' => ['nullable', 'max:50'],
+            'address' => ['nullable', 'max:150'],
+            'city' => ['nullable', 'max:50'],
+            'region' => ['nullable', 'max:50'],
+            'country' => ['nullable', 'in:'.$countries],
+            'postal_code' => ['nullable', 'max:25'],
         ];
     }
 }

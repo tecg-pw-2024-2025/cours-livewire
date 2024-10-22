@@ -1,12 +1,12 @@
 .dissolve {
-    animation: dissolve 1s linear;
+    animation: dissolve 2s linear;
 }
 
 @keyframes dissolve {
     0% {
         opacity: 1;
     }
-    80% {
+    90% {
         opacity: 1;
     }
     100% {

@@ -5,7 +5,7 @@
              @spinner-ended.window="
                     $el.classList.remove('hidden');
                     $el.classList.add('dissolve');
-                    setTimeout(()=>$el.classList.add('hidden'),1000)
+                    setTimeout(()=>$el.classList.add('hidden'),2000)
                     ">
             <div class="absolute top-4 left-16 md:left-24 right-0 flex items-center justify-between mb-8 max-w-3xl bg-green-500 rounded">
                 <div class="flex items-center">
@@ -33,12 +33,13 @@
         <h1 class="mb-8 text-3xl font-bold">
             <a class="text-indigo-400 hover:text-indigo-600"
                wire:navigate
-               href="/organizations">Organizations</a><span class="text-indigo-400 font-medium">/</span><span x-html="$wire.form.name"></span>
+               href="/organizations">Organizations</a><span class="text-indigo-400 font-medium">/</span><span>Create</span>
         </h1>
         <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
             <form wire:submit="save">
                 <div class="flex flex-wrap -mb-8 -mr-6 p-8">
                     <x-label-and-input label-text="Name:"
+                                       autofocus
                                        model-property="form.name" />
                     <x-label-and-input label-text="Email:"
                                        model-property="form.email" />
@@ -58,10 +59,6 @@
                                        model-property="form.postal_code" />
                 </div>
                 <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
-                    <button class="text-red-600 hover:underline"
-                            tabindex="-1"
-                            type="button">Delete Organization
-                    </button>
                     <button class="flex items-center btn-indigo ml-auto"
                             type="submit"
                             x-data="{ saving: false }"
@@ -75,57 +72,15 @@
                             },300);"
                     >
                         <template x-if="saving">
-                            <div class="flex gap-4"><span class="btn-spinner"></span><span>Updating Organization</span>
+                            <div class="flex gap-4"><span class="btn-spinner"></span><span>Creating Organization</span>
                             </div>
                         </template>
                         <template x-if="!saving">
-                            <div>Update Organization</div>
+                            <div>Create Organization</div>
                         </template>
                     </button>
                 </div>
             </form>
         </div>
-        <h2 class="mt-12 text-2xl font-bold">Contacts</h2>
-        <div class="mt-6 bg-white rounded shadow overflow-x-auto">
-            <table class="w-full whitespace-nowrap">
-                <tr class="text-left font-bold">
-                    <th class="pb-4 pt-6 px-6">Name</th>
-                    <th class="pb-4 pt-6 px-6">City</th>
-                    <th class="pb-4 pt-6 px-6"
-                        colspan="2">Phone
-                    </th>
-                </tr>
-                @foreach($organization->contacts as $contact)
-                    <tr class="hover:bg-gray-100 focus-within:bg-gray-100">
-                        <td class="border-t">
-                            <a class="flex items-center px-6 py-4 focus:text-indigo-500"
-                               href="/contacts/{{ $contact->id }}/edit">{{ $contact->name }}</a>
-                        </td>
-                        <td class="border-t">
-                            <a class="flex items-center px-6 py-4"
-                               tabindex="-1"
-                               href="/contacts/{{ $contact->id }}/edit">{{ $contact->city }}</a>
-                        </td>
-                        <td class="border-t">
-                            <a class="flex items-center px-6 py-4"
-                               tabindex="-1"
-                               href="/contacts/{{ $contact->id }}/edit">{{ $contact->phone }}</a>
-                        </td>
-                        <td class="w-px border-t">
-                            <a class="flex items-center px-4"
-                               tabindex="-1"
-                               href="/contacts/{{ $contact->id }}/edit">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20"
-                                     class="block w-6 h-6 fill-gray-400">
-                                    <polygon points="12.95 10.707 13.657 10 8 4.343 6.586 5.757 10.828 10 6.586 14.243 8 15.657 12.95 10.707"></polygon>
-                                </svg>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-        </div>
-    </div>
     </div>
 </main>

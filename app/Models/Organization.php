@@ -21,6 +21,7 @@ class Organization extends Model
         'region',
         'country',
         'postal_code',
+        'account_id',
     ];
 
     public function resolveRouteBinding($value, $field = null)
