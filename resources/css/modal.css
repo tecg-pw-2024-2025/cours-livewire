@@ -1,0 +1,16 @@
+
+.modal {
+    @apply fixed
+        w-[40rem]
+        h-full
+        top-0
+        -right-[40rem]
+        will-change-auto
+        duration-200
+        ease-in;
+    transition: right 200ms ease-in;
+}
+
+.modal.active {
+    @apply right-0
+}

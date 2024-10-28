@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible"
               content="ie=edge">
         <title>{{ $title ?? 'Page Title' }}</title>
-        @vite(['resources/css/app.css'])
+        @vite(['resources/css/app.css','resources/js/app.js'])
     </head>
     <body class="main-template font-sans leading-none text-gray-700 antialiased">
         {{ $slot }}

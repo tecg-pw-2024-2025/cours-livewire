@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Modals;
 
-use App\Concerns\HasModal;
 use App\Exceptions\OrganizationException;
 use App\Livewire\Forms\OrganizationForm;
 use App\Models\Organization;
@@ -12,9 +11,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
-class OrganizationEdit extends Component
+class EditOrganization extends Component
 {
-
     public ?Organization $organization;
 
     public OrganizationForm $form;
@@ -44,7 +42,6 @@ class OrganizationEdit extends Component
     {
         $this->organization->load('contacts');
 
-        return view('livewire.organization-edit');
+        return view('livewire.modals.edit-organization');
     }
-
 }

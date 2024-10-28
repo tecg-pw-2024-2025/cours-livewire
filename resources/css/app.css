@@ -5,5 +5,6 @@
 @import 'buttons';
 @import 'form';
 @import 'feedback';
+@import 'modal';
 
 @import 'tailwindcss/utilities';

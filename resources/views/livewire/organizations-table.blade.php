@@ -1,4 +1,4 @@
-<main class="main-content px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto">
+<main class="main-content px-4 py-8 md:flex-1 md:p-12 md:overflow-y-auto relative">
     <h1 class="mb-8 text-3xl font-bold">Organizations</h1>
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center mr-4 w-full max-w-md">
@@ -28,12 +28,19 @@
                 </template>
             </form>
         </div>
-        <a class="btn-indigo"
-           wire:navigate
-           href="/organizations/create"><span>Create</span><span class="hidden md:inline">&nbsp;Organization</span></a>
+        <a class="btn-indigo cursor-pointer"
+           wire:click.prevent="openModal('create-organization')"
+        ><span>Create</span><span class="hidden md:inline">&nbsp;Organization</span></a>
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto"
-         x-data="{ highlightedText: function(text) { return text.replace(new RegExp(this.$wire.search, 'gi'), match => '<span class=bg-yellow-200>' + match + '</span>'); } }"
+         x-data="{
+            highlightedText(text) {
+                if($wire.search){
+                    return text.replace(new RegExp($wire.search, 'gi'), match => '<span class=bg-yellow-200>' + match + '</span>');
+                 }
+                 return text;
+             }
+          }"
     >
         <table class="w-full whitespace-nowrap">
             <thead>
@@ -51,26 +58,22 @@
             </thead>
             <tbody>
                 @foreach($this->organizations as $organization)
-                    <tr class="hover:bg-gray-100 focus-within:bg-gray-100" wire:key="{{ $organization->id }}">
-                        <td class="border-t"><a class="flex items-center px-6 py-4 focus:text-indigo-500"
-                                                wire:navigate
-                                                href="/organizations/{{ $organization->id }}/edit"
-                                                x-html="highlightedText(&quot;{{ $organization->name }}&quot;)"></a>
+                    <tr class="hover:bg-gray-100 focus-within:bg-gray-100 cursor-pointer"
+                        wire:key="{{ $organization->id }}">
+                        <td class="border-t">
+                            <a class="flex items-center px-6 py-4 focus:text-indigo-500 whitespace-pre-wrap"
+                               wire:click="openModal('edit-organization', {'id' : '{{ $organization->id }}' })"
+                               x-html="highlightedText(&quot;{{ $organization->name }}&quot;)"></a>
                         </td>
                         <td class="border-t"><a class="flex items-center px-6 py-4"
-                                                wire:navigate
-                                                tabindex="-1"
-                                                href="/organizations/{{ $organization->id }}/edit">{{ $organization->city }}</a>
+                                                wire:click="openModal('edit-organization', {'id' : '{{ $organization->id }}' })">{{ $organization->city }}</a>
                         </td>
                         <td class="border-t"><a class="flex items-center px-6 py-4"
-                                                wire:navigate
-                                                tabindex="-1"
-                                                href="/organizations/{{ $organization->id }}/edit">{{ $organization->phone }}</a>
+                                                wire:click="openModal('edit-organization',{'id' : '{{ $organization->id }}' })">{{ $organization->phone }}</a>
                         </td>
-                        <td class="w-px border-t"><a class="flex items-center px-4"
-                                                     wire:navigate
-                                                     tabindex="-1"
-                                                     href="/organizations/{{ $organization->id }}/edit">
+                        <td class="w-px border-t">
+                            <a class="flex items-center px-4"
+                               wire:click="openModal('edit-organization', {'id' : '{{ $organization->id }}' })">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 20 20"
                                      class="block w-6 h-6 fill-gray-400">
@@ -84,4 +87,12 @@
         </table>
     </div>
     {{ $this->organizations->links(data: ['scrollTo' => false]) }}
+
+    @if($childName && $childPayload)
+        <x-modal-container :childName="$childName"
+                           :childPayload="$childPayload" />
+    @elseif($childName)
+        <x-modal-container :childName="$childName" />
+    @endif
+
 </main>

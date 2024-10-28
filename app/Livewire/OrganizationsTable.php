@@ -2,15 +2,17 @@
 
 namespace App\Livewire;
 
+use App\Concerns\HasModal;
 use App\Models\Account;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class OrganizationsTable extends Component
 {
-    use WithPagination;
+    use WithPagination, HasModal;
 
     public $search = '';
     public $search_button = false;
@@ -25,6 +27,11 @@ class OrganizationsTable extends Component
             ->filter(['search' => $this->search])
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(10);
+    }
+    #[On('organization-saved')]
+    public function refreshOrganizations(): void
+    {
+        unset($this->organizations);
     }
 
     public function sort($field): void
