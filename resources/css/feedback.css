@@ -1,0 +1,15 @@
+.dissolve {
+    animation: dissolve 2s linear;
+}
+
+@keyframes dissolve {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

@@ -1,7 +1,19 @@
+@php if (! isset($scrollTo)) {
+     $scrollTo = 'body';
+ }
+
+ $scrollIntoViewJsSnippet = ($scrollTo !== false)
+     ? <<<JS
+        (\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).scrollIntoView()
+     JS
+     : '';
+
+@endphp
 @if ($paginator->hasPages())
     <div role="navigation"
          aria-label="{{ __('Pagination Navigation') }}"
-         class="mt-6">
+         class="mt-6"
+        id="pagination">
         <div class="flex flex-wrap -mb-1">
 
             @if ($paginator->onFirstPage())
@@ -10,6 +22,7 @@
                 </div>
             @else
                 <a href="{{ $paginator->previousPageUrl() }}"
+                   x-on:click="{{ $scrollIntoViewJsSnippet }}"
                    class="mb-1 mr-1 px-4 py-3 focus:text-indigo-500 text-sm leading-4 hover:bg-white border focus:border-indigo-500 rounded">
                     {!! __('pagination.previous') !!}
                 </a>
